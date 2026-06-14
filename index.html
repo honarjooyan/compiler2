@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>کامپایلر هوشمند پارس | ویرایشگر زنده HTML/CSS/JS</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: radial-gradient(circle at 20% 30%, #0f172a, #020617);
+            font-family: 'Vazirmatn', monospace;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .glass-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(15, 25, 35, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            border: 1px solid rgba(255,215,0,0.25);
+            overflow: hidden;
+            padding: 18px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            background: linear-gradient(135deg, #ffd966, #ffaa44);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.8rem;
+        }
+        .editor-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .editor-box {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 12px;
+            border: 1px solid #ffd96655;
+        }
+        .editor-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffefb0;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-right: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 220px;
+            background: #0a0f1f;
+            color: #e2e8f0;
+            border: 1px solid #ffd96688;
+            border-radius: 20px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            outline: none;
+            direction: ltr;
+            text-align: left;
+        }
+        .button-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #ffaa44;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary {
+            background: #2a4a3a;
+            color: #ffefb0;
+        }
+        .preview-area {
+            background: rgba(0,0,0,0.5);
+            border-radius: 28px;
+            padding: 8px;
+            border: 1px solid #ffd96688;
+        }
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 15px;
+            color: #ffefb0;
+            font-weight: bold;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            border: none;
+        }
+        .save-status {
+            font-size: 0.7rem;
+            color: #88ff88;
+            text-align: center;
+            margin-top: 12px;
+        }
+        @media (max-width: 850px) {
+            textarea { height: 160px; }
+            iframe { height: 300px; }
+            .btn { padding: 6px 16px; font-size: 0.8rem; }
+        }
+        @media (max-width: 550px) {
+            .glass-container { padding: 12px; }
+            .editor-header { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="glass-container">
+    <div class="header">
+        <h1><i class="bi bi-code-square"></i> کامپایلر هوشمند پارس</h1>
+        <p style="color:#cbd5e1;">HTML + CSS + JavaScript | پیش‌نمایش زنده • ذخیره • دانلود</p>
+    </div>
+
+    <div class="editor-row">
+        <div class="editor-box">
+            <div class="editor-header"><i class="bi bi-filetype-html"></i> HTML</div>
+            <textarea id="htmlCode" placeholder="کد HTML خود را بنویسید..."><div class="card">
+  <h1>سلام دنیا!</h1>
+  <p>کامپایلر هوشمند پارس</p>
+</div></textarea>
+        </div>
+        <div class="editor-box">
+            <div class="editor-header"><i class="bi bi-filetype-css"></i> CSS</div>
+            <textarea id="cssCode" placeholder="کد CSS خود را بنویسید...">body {
+  font-family: 'Vazirmatn', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  margin: 0;
+  padding: 20px;
+}
+.card {
+  background: white;
+  border-radius: 28px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+h1 { color: #2e7d32; }</textarea>
+        </div>
+        <div class="editor-box">
+            <div class="editor-header"><i class="bi bi-filetype-js"></i> JavaScript</div>
+            <textarea id="jsCode" placeholder="کد JavaScript خود را بنویسید...">document.querySelector('.card')?.addEventListener('click', () => {
+  alert('کامپایلر هوشمند پارس!');
+});</textarea>
+        </div>
+    </div>
+
+    <div class="button-bar">
+        <button class="btn" id="runBtn"><i class="bi bi-play-circle"></i> پیش‌نمایش</button>
+        <button class="btn btn-secondary" id="saveBtn"><i class="bi bi-save"></i> ذخیره در مرورگر</button>
+        <button class="btn btn-secondary" id="downloadBtn"><i class="bi bi-download"></i> دانلود HTML</button>
+        <button class="btn btn-secondary" id="resetSavedBtn"><i class="bi bi-arrow-repeat"></i> بازیابی نمونه</button>
+    </div>
+
+    <div class="preview-area">
+        <div class="preview-header">
+            <span><i class="bi bi-eye-fill"></i> خروجی زنده</span>
+            <span style="font-size:0.7rem;">(کاملاً تعاملی)</span>
+        </div>
+        <iframe id="previewFrame" title="preview" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"></iframe>
+    </div>
+    <div class="save-status" id="saveStatus">✨ تغییرات خود را ذخیره کن، بعداً قابل بازیابی است ✨</div>
+</div>
+
+<script>
+    // عناصر
+    const htmlEditor = document.getElementById('htmlCode');
+    const cssEditor = document.getElementById('cssCode');
+    const jsEditor = document.getElementById('jsCode');
+    const previewFrame = document.getElementById('previewFrame');
+    const runBtn = document.getElementById('runBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetSavedBtn = document.getElementById('resetSavedBtn');
+    const saveStatus = document.getElementById('saveStatus');
+
+    // کلیدهای ذخیره در localStorage
+    const STORAGE_KEYS = {
+        html: 'pars_compiler_html',
+        css: 'pars_compiler_css',
+        js: 'pars_compiler_js'
+    };
+
+    // نمونه کدهای پیش‌فرض زیبا
+    const defaultCodes = {
+        html: `<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کامپایلر پارس</title>
+    <style>
+        /* CSS شما اینجا قرار می‌گیرد */
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>✨  <br>   ✨</h1>
+      
+    </div>
+    <script>
+        // جاوااسکریپت شما اینجا قرار می‌گیرد
+    <\/script>
+</body>
+</html>`,
+        css: `body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Vazirmatn', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+.card {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 48px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+    max-width: 500px;
+    border: 1px solid white;
+}
+h1 {
+    color: #2e7d32;
+    font-size: 1.8rem;
+}
+button {
+    background: #ffaa44;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 60px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+button:hover {
+    transform: scale(1.02);
+    background: #ff8800;
+}`,
+        js: `document.getElementById('magicBtn')?.addEventListener('click', () => {
+    alert('🎉 سلام! کد شما اجرا شد 🎉');
+    document.querySelector('.card').style.transform = 'scale(1.02)';
+    setTimeout(() => document.querySelector('.card').style.transform = 'scale(1)', 200);
+});`
+    };
+
+    // تابع تولید محتوای کامل HTML
+    function getFullHTML() {
+        let htmlContent = htmlEditor.value;
+        const cssContent = cssEditor.value;
+        const jsContent = jsEditor.value;
+        
+        // اگر کاربر تگ style یا script نگذاشته بود خودکار اضافه کن
+        if (!htmlContent.includes('<style')) {
+            htmlContent = htmlContent.replace('</head>', `<style>${cssContent}</style>\n</head>`);
+        }
+        if (!htmlContent.includes('<script')) {
+            htmlContent = htmlContent.replace('</body>', `<script>${jsContent}<\/script>\n</body>`);
+        }
+        return `<!DOCTYPE html>\n<html dir="rtl" lang="fa">\n${htmlContent}`;
+    }
+
+    // بارگذاری در iframe
+    function runPreview() {
+        const fullHtml = getFullHTML();
+        const blob = new Blob([fullHtml], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        previewFrame.src = url;
+        setTimeout(() => URL.revokeObjectURL(url), 500);
+        saveStatus.innerHTML = '✅ پیش‌نمایش به‌روز شد';
+        setTimeout(() => { if(saveStatus.innerHTML === '✅ پیش‌نمایش به‌روز شد') saveStatus.innerHTML = '✨ آماده | کدها را ذخیره کن ✨'; }, 2000);
+    }
+
+    // ذخیره در localStorage
+    function saveToLocal() {
+        localStorage.setItem(STORAGE_KEYS.html, htmlEditor.value);
+        localStorage.setItem(STORAGE_KEYS.css, cssEditor.value);
+        localStorage.setItem(STORAGE_KEYS.js, jsEditor.value);
+        saveStatus.innerHTML = '💾 کدها در مرورگر ذخیره شدند!';
+        setTimeout(() => { if(saveStatus.innerHTML === '💾 کدها در مرورگر ذخیره شدند!') saveStatus.innerHTML = '✨ آماده | کدها را ذخیره کن ✨'; }, 2000);
+    }
+
+    // بارگذاری از localStorage
+    function loadFromLocal() {
+        const savedHtml = localStorage.getItem(STORAGE_KEYS.html);
+        const savedCss = localStorage.getItem(STORAGE_KEYS.css);
+        const savedJs = localStorage.getItem(STORAGE_KEYS.js);
+        if(savedHtml) htmlEditor.value = savedHtml;
+        if(savedCss) cssEditor.value = savedCss;
+        if(savedJs) jsEditor.value = savedJs;
+        else {
+            // بارگذاری نمونه کدهای زیبا برای اولین بار
+            htmlEditor.value = defaultCodes.html;
+            cssEditor.value = defaultCodes.css;
+            jsEditor.value = defaultCodes.js;
+        }
+        runPreview();
+        saveStatus.innerHTML = '📂 آخرین کدهای ذخیره شده بازیابی شد';
+        setTimeout(() => { if(saveStatus.innerHTML === '📂 آخرین کدهای ذخیره شده بازیابی شد') saveStatus.innerHTML = '✨ آماده | کدها را ذخیره کن ✨'; }, 2000);
+    }
+
+    // ریست به نمونه‌های اولیه زیبا
+    function resetToSample() {
+        htmlEditor.value = defaultCodes.html;
+        cssEditor.value = defaultCodes.css;
+        jsEditor.value = defaultCodes.js;
+        runPreview();
+        saveStatus.innerHTML = '🔄 نمونه کدها بازیابی شد (ذخیره نشده)';
+        setTimeout(() => { if(saveStatus.innerHTML === '🔄 نمونه کدها بازیابی شد (ذخیره نشده)') saveStatus.innerHTML = '✨ برای ذخیره دائم دکمه ذخیره را بزن ✨'; }, 2000);
+    }
+
+    // دانلود فایل HTML کامل
+    function downloadAsFile() {
+        const fullHtml = getFullHTML();
+        const blob = new Blob([fullHtml], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `compiler_pars_${new Date().toISOString().slice(0,19)}.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        saveStatus.innerHTML = '📥 فایل HTML دانلود شد';
+        setTimeout(() => { if(saveStatus.innerHTML === '📥 فایل HTML دانلود شد') saveStatus.innerHTML = '✨ آماده | کدها را ذخیره کن ✨'; }, 2000);
+    }
+
+    // رویدادها
+    runBtn.addEventListener('click', runPreview);
+    saveBtn.addEventListener('click', saveToLocal);
+    downloadBtn.addEventListener('click', downloadAsFile);
+    resetSavedBtn.addEventListener('click', resetToSample);
+
+    // بارگذاری اولیه
+    loadFromLocal();
+
+    // همچنین هر 15 ثانیه یکبار خودکار ذخیره (دلبخواه)
+    setInterval(() => {
+        if(htmlEditor.value && cssEditor.value && jsEditor.value){
+            localStorage.setItem(STORAGE_KEYS.html, htmlEditor.value);
+            localStorage.setItem(STORAGE_KEYS.css, cssEditor.value);
+            localStorage.setItem(STORAGE_KEYS.js, jsEditor.value);
+        }
+    }, 30000);
+</script>
+</body>
+</html>
